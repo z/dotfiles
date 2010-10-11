@@ -1,0 +1,3 @@
+crlf off # No Microsoft linebreaks
+startup_message off # bypass GPL notice (we're aware)
+defscrollback 15000 # big scrollback
