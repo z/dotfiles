@@ -1,8 +1,6 @@
 # reload .bashrc
 alias bashrc='clear; . $HOME/.bashrc'
 
-PS1='${debian_chroot:+($debian_chroot)}\[\033[01;37m\]\u\[\033[00;33m\]@\[\033[00;37m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-
 # define colors
 BLACK='\e[0;30m'
 BLUE='\e[0;34m'
@@ -20,7 +18,13 @@ LIGHTRED='\e[1;31m'
 LIGHTPURPLE='\e[1;35m'
 YELLOW='\e[1;33m'
 WHITE='\e[1;37m'
-NC='\e[0m' # No Color
+NONE='\e[0m' # No Color / No Bold
+BOLD='\e[1m' # Bold
+UNDERLINE='\e[1m' # Bold
+
+
+#PS1='${debian_chroot:+($debian_chroot)}\[\033[01;37m\]\u\[\033[00;33m\]@\[\033[00;37m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+PS1="${debian_chroot:+($debian_chroot)}${BOLD}${WHITE}\u${NONE}${BROWN}@${LIGHTGRAY}\h${NONE}:${LIGHTBLUE}\w${NONE}$ "
 
 # directory navigation
 alias explore='nautilus --browser .'
