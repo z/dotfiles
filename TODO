@@ -1,0 +1,2 @@
+- Move files to a separate folder and create a function to "install" (symlink)
+- Include more conf files for other programs that aren't .files
