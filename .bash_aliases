@@ -2,31 +2,44 @@
 alias bashrc='clear; . $HOME/.bashrc'
 
 # define colors
-BLACK='\e[0;30m'
-BLUE='\e[0;34m'
-GREEN='\e[0;32m'
-CYAN='\e[0;36m'
-RED='\e[0;31m'
-PURPLE='\e[0;35m'
-BROWN='\e[0;33m'
-LIGHTGRAY='\e[0;37m'
-DARKGRAY='\e[1;30m'
-LIGHTBLUE='\e[1;34m'
-LIGHTGREEN='\e[1;32m'
-LIGHTCYAN='\e[1;36m'
-LIGHTRED='\e[1;31m'
-LIGHTPURPLE='\e[1;35m'
-YELLOW='\e[1;33m'
-WHITE='\e[1;37m'
-NONE='\e[0m' # No Color / No Bold
-BOLD='\e[1m' # Bold
-UNDERLINE='\e[1m' # Bold
+Black='\e[0;30m'    # Black / Regular
+Red='\e[0;31m'      # Red
+Green='\e[0;32m'    # Green
+Yellow='\e[0;33m'   # Yellow
+Blue='\e[0;34m'     # Blue
+Purple='\e[0;35m'   # Purple
+Cyan='\e[0;36m'     # Cyan
+White='\e[0;37m'    # White
 
-#PS1='${debian_chroot:+($debian_chroot)}\[\033[01;37m\]\u\[\033[00;33m\]@\[\033[00;37m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-PS1="${debian_chroot:+($debian_chroot)}${BOLD}${WHITE}\u${NONE}${BROWN}@${LIGHTGRAY}\h${NONE}:${LIGHTBLUE}\w${NONE}$ "
+BBlack='\e[1;30m'   # BBlack / Bold
+BRed='\e[1;31m'     # BRed
+BGreen='\e[1;32m'   # BGreen
+BYellow='\e[1;33m'  # BYellow
+BBlue='\e[1;34m'    # BBlue
+BPurple='\e[1;35m'  # BPurple
+BCyan='\e[1;36m'    # BCyan
+BWhite='\e[1;37m'   # BWhite
 
-# don't sudo vim 
-function sudo () { [[ $1 == vim ]] && echo "use sudoedit!"; shift && sudoedit "$@" || command sudo "$@"; }
+UBlack='\e[4;30m'   # UBlack / Underline
+URed='\e[4;31m'     # URed
+UGreen='\e[4;32m'   # UGreen
+UYellow='\e[4;33m'  # UYellow
+UBlue='\e[4;34m'    # UBlue
+UPurple='\e[4;35m'  # UPurple
+UCyan='\e[4;36m'    # UCyan
+UWhite='\e[4;37m'   # UWhite
+
+BGBlack='\e[40m'    # BGBlack - background
+BGRed='\e[41m'      # BGRed
+BGGeeen='\e[42m'    # BGGreen
+BGYellow='\e[43m'   # BGYellow
+BGBlue='\e[44m'     # BGBlue
+BGPurple='\e[45m'   # BGPurple
+BGCyan='\e[46m'     # BGCyan
+BGWhite='\e[47m'    # BGWhite
+NC='\e[0m'          # Text Reset / No Color
+
+PS1="${debian_chroot:+($debian_chroot)}\[${BWhite}\]\u\[${NC}\]\[${Yellow}\]@\[${White}\]\h\[${NC}\]:\[${BBlue}\]\w\[${NC}\]$ "
 
 # directory navigation
 alias explore='nautilus --browser .'
@@ -36,7 +49,15 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
 # make directory and move into it
-mkcdr () { mkdir -p -v $1 && cd $1; }
+mkcdr () { mkdir -p $1 && cd $1; }
+
+# have a "cow" say a fortune
+cowtune () { fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1); }
+
+# move "type"
+# touch file.{jpg,bmp,gif} && ls
+# mvt "file.jpg file.bmp file.gif" png && ls
+mvt () { for f in $1; do mv $f ${f%.*}.$2; done }
 
 # math
 ? () { python -c "from math import *; print $1"; }
@@ -71,3 +92,7 @@ extract () {
 mktar () { tar cvf  "${1%%/}.tar"     "${1%%/}/"; }
 mktgz () { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
 mktbz () { tar cvjf "${1%%/}.tar.bz2" "${1%%/}/"; }
+
+
+# don't sudo vim / broken
+#function sudo () { [[ $1 == vim ]] && echo "use sudoedit!"; shift && sudoedit "$@" || command sudo "$@"; }
