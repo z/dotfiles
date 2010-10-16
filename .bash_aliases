@@ -29,7 +29,7 @@ UPurple='\e[4;35m'  # UPurple
 UCyan='\e[4;36m'    # UCyan
 UWhite='\e[4;37m'   # UWhite
 
-BGBlack='\e[40m'    # BGBlack - background
+BGBlack='\e[40m'    # BGBlack / Background
 BGRed='\e[41m'      # BGRed
 BGGeeen='\e[42m'    # BGGreen
 BGYellow='\e[43m'   # BGYellow
@@ -37,7 +37,10 @@ BGBlue='\e[44m'     # BGBlue
 BGPurple='\e[45m'   # BGPurple
 BGCyan='\e[46m'     # BGCyan
 BGWhite='\e[47m'    # BGWhite
+
 NC='\e[0m'          # Text Reset / No Color
+
+colortest () { for c in {,B,U,BG}{Black,Red,Green,Yellow,Blue,Purple,Cyan,White}; do echo -e ${!RWhite}${!c}$c${NC}; done; echo -e "${NC}"; }
 
 PS1="${debian_chroot:+($debian_chroot)}\[${BWhite}\]\u\[${NC}\]\[${Yellow}\]@\[${White}\]\h\[${NC}\]:\[${BBlue}\]\w\[${NC}\]$ "
 
