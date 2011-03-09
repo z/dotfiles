@@ -53,14 +53,6 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-# Arch
-alias pacman='pacman-color'
-
-# Ubuntu
-#PS1="${debian_chroot:+($debian_chroot)}\[${BWhite}\]\u\[${NC}\]\[${Yellow}\]@\[${White}\]\h\[${NC}\]:\[${BBlue}\]\w\[${NC}\]$ "
-#alias explore='nautilus --browser .'
-#cowtune() { fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1); }
-
 # directory navigation
 alias explore='thunar --browser .'
 alias ..='cd ..'
@@ -80,7 +72,7 @@ cowtune () { fortune | cowsay -f $(ls /usr/share/cows/ | shuf -n1); }
 mvt() { for f in $1; do mv $f ${f%.*}.$2; done }
 
 # math
-?() { python -c "from math import *; print $1"; }
+?() { python2 -c "from math import *; print $@"; }
 
 # svn
 svn_addr() { for file in $(svn status |grep ^\? |awk '{ print $2 }'); do svn add $file; done; }
@@ -117,6 +109,15 @@ mktbz() { tar cvjf "${1%%/}.tar.bz2" "${1%%/}/"; }
 new-chromium-profile() { p=~/.config/chromium/$1; cp -r ~/.config/chromium/Default $p && echo "chromium-browser --user-data-dir=$p" && chromium-browser --user-data-dir=$p; }
 # runs a chromium profile
 run-chromium-profile() { chromium-browser --user-data-dir=~/.config/chromium/$1; }
+
+
+# Arch
+alias pacman='pacman-color'
+
+# Ubuntu
+#PS1="${debian_chroot:+($debian_chroot)}\[${BWhite}\]\u\[${NC}\]\[${Yellow}\]@\[${White}\]\h\[${NC}\]:\[${BBlue}\]\w\[${NC}\]$ "
+#alias explore='nautilus --browser .'
+#cowtune() { fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1); }
 
 # don't sudo vim / broken
 #function sudo () { [[ $1 == vim ]] && echo "use sudoedit!"; shift && sudoedit "$@" || command sudo "$@"; }
