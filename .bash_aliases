@@ -40,38 +40,55 @@ BGWhite='\e[47m'    # BGWhite
 
 NC='\e[0m'          # Text Reset / No Color
 
-colortest () { for c in {,B,U,BG}{Black,Red,Green,Yellow,Blue,Purple,Cyan,White}; do echo -e ${!RWhite}${!c}$c${NC}; done; echo -e "${NC}"; }
+colortest() { for c in {,B,U,BG}{Black,Red,Green,Yellow,Blue,Purple,Cyan,White}; do echo -e ${!RWhite}${!c}$c${NC}; done; echo -e "${NC}"; }
 
-PS1="${debian_chroot:+($debian_chroot)}\[${BWhite}\]\u\[${NC}\]\[${Yellow}\]@\[${White}\]\h\[${NC}\]:\[${BBlue}\]\w\[${NC}\]$ "
+PS1="\[\e[1;34m\]\u\[\e[0;36m\]@\[\e[1;34m\]\h\[\e[0m\]:\[\e[0;34m\]\w\[\e[0;36m\]$ \[\e[0m\]"
+
+# Yay Colors
+alias tmux="tmux -2" # vim full color
+alias ls='ls --color=auto'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# Arch
+alias pacman='pacman-color'
+
+# Ubuntu
+#PS1="${debian_chroot:+($debian_chroot)}\[${BWhite}\]\u\[${NC}\]\[${Yellow}\]@\[${White}\]\h\[${NC}\]:\[${BBlue}\]\w\[${NC}\]$ "
+#alias explore='nautilus --browser .'
+#cowtune() { fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1); }
 
 # directory navigation
-alias explore='nautilus --browser .'
+alias explore='thunar --browser .'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
 # make directory and move into it
-mkcdr () { mkdir -p $1 && cd $1; }
+mkcdr() { mkdir -p $1 && cd $1; }
 
 # have a "cow" say a fortune
-cowtune () { fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1); }
+cowtune () { fortune | cowsay -f $(ls /usr/share/cows/ | shuf -n1); }
 
 # move "type"
 # touch file.{jpg,bmp,gif} && ls
 # mvt "file.jpg file.bmp file.gif" png && ls
-mvt () { for f in $1; do mv $f ${f%.*}.$2; done }
+mvt() { for f in $1; do mv $f ${f%.*}.$2; done }
 
 # math
-? () { python -c "from math import *; print $1"; }
+?() { python -c "from math import *; print $1"; }
 
 # svn
-svn_addr () { for file in $(svn status |grep ^\? |awk '{ print $2 }'); do svn add $file; done; }
-svn_rmr () { for file in $(svn status |grep ^\! |awk '{ print $2 }'); do svn rm $file; done; }
-alias svn_cleanup='for file in $(find -name .svn); do rm -rf $file; done'
+svn_addr() { for file in $(svn status |grep ^\? |awk '{ print $2 }'); do svn add $file; done; }
+svn_rmr() { for file in $(svn status |grep ^\! |awk '{ print $2 }'); do svn rm $file; done; }
+svn_cleanup() { for file in $(find -name .svn); do rm -rf $file; done; }
 
 # extract
-extract () {
+extract() {
 	if [ -f $1 ] ; then
 		case $1 in
 			*.tar.bz2)   tar xjf $1 ;;
@@ -92,10 +109,14 @@ extract () {
 	fi
 }
 # tar
-mktar () { tar cvf  "${1%%/}.tar"     "${1%%/}/"; }
-mktgz () { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
-mktbz () { tar cvjf "${1%%/}.tar.bz2" "${1%%/}/"; }
+mktar() { tar cvf  "${1%%/}.tar"     "${1%%/}/"; }
+mktgz() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
+mktbz() { tar cvjf "${1%%/}.tar.bz2" "${1%%/}/"; }
 
+# create a new chromium profile
+new-chromium-profile() { p=~/.config/chromium/$1; cp -r ~/.config/chromium/Default $p && echo "chromium-browser --user-data-dir=$p" && chromium-browser --user-data-dir=$p; }
+# runs a chromium profile
+run-chromium-profile() { chromium-browser --user-data-dir=~/.config/chromium/$1; }
 
 # don't sudo vim / broken
 #function sudo () { [[ $1 == vim ]] && echo "use sudoedit!"; shift && sudoedit "$@" || command sudo "$@"; }
