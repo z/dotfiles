@@ -72,6 +72,8 @@ cowtune () { fortune | cowsay -f $(ls /usr/share/cows/ | shuf -n1); }
 mvt() { for f in $1; do mv $f ${f%.*}.$2; done }
 findtypes() { find . -type f | awk -F'.' '{print $NF}' | sort| uniq -c | sort -g; }
 
+backup() { cp -i $1{,.bak.$(date +%Y%m%d%H%M%S)}; }
+
 # math
 ?() { python2 -c "from math import *; print $@"; }
 
@@ -114,7 +116,8 @@ run-chromium-profile() { chromium-browser --user-data-dir=~/.config/chromium/$1;
 
 # Add Clock
 addclock() { while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done & }
-
+showkeys() { echo -e "Terminal shortcut keys\n" && sed -e 's/\^/Ctrl+/g;s/M-/Shift+/g' <(stty -a 2>&1| sed -e 's/;/\n/g' | grep "\^" | tr -d ' '); }
+rtfm() { help $@ || man $@ || $BROWSER "http://www.google.com/search?q=$@"; }
 
 # Arch
 alias pacman='pacman-color'
