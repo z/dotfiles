@@ -70,6 +70,7 @@ cowtune () { fortune | cowsay -f $(ls /usr/share/cows/ | shuf -n1); }
 # touch file.{jpg,bmp,gif} && ls
 # mvt "file.jpg file.bmp file.gif" png && ls
 mvt() { for f in $1; do mv $f ${f%.*}.$2; done }
+findtypes() { find . -type f | awk -F'.' '{print $NF}' | sort| uniq -c | sort -g; }
 
 # math
 ?() { python2 -c "from math import *; print $@"; }
@@ -109,6 +110,10 @@ mktbz() { tar cvjf "${1%%/}.tar.bz2" "${1%%/}/"; }
 new-chromium-profile() { p=~/.config/chromium/$1; cp -r ~/.config/chromium/Default $p && echo "chromium-browser --user-data-dir=$p" && chromium-browser --user-data-dir=$p; }
 # runs a chromium profile
 run-chromium-profile() { chromium-browser --user-data-dir=~/.config/chromium/$1; }
+
+
+# Add Clock
+addclock() { while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done & }
 
 
 # Arch

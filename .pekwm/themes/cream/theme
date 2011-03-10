@@ -1,0 +1,312 @@
+
+$font = "XFT#Droid Sans:size=9#Left#0 0"
+$boldfont = "XFT#Droid Sans:size=9:bold#Left#0 0"
+
+PDecor {
+	Decor = "Default" {
+		Title {
+			Height = "0"
+			HeightAdapt ="False"
+			Pad = "2 4 6 6"
+
+			Focused = "Empty"
+			Unfocused = "Empty"
+
+			Tab {
+				Focused = "Empty"
+				FocusedSelected = "Empty"
+				UnFocused = "Empty"
+				UnFocusedSelected = "Empty"
+			}
+			FontColor {
+				Focused = "#575757"
+				FocusedSelected = "#a4a4a4"
+				Unfocused = "#575757"
+				UnfocusedSelected = "#575757"
+
+			}
+			Font {
+				Focused = "$font"
+				UnFocused = "$font"
+				FocusedSelected = "$boldfont"
+				UnFocusedSelected = "$boldfont"
+			}
+			Separator {
+				Focused = "Image seperator.png"
+				Unfocused = "Image seperator.png"
+			}
+	                Buttons {
+				Right {
+					Focused = "Image close-normal.png"
+					Unfocused = "Image close-normal.png"
+					Pressed = "Image close-pressed.png"
+					Hoover = "Image close-prelight.png"
+					Button = "1" { Actions = "Close" }
+					Button = "3" { Actions = "Kill" }
+				}
+				Right {
+					Focused = "Image max-normal.png"
+					Unfocused = "Image max-normal.png"
+					Pressed = "Image max-pressed.png"
+					Hoover = "Image max-prelight.png"
+					Button = "1" { Actions = "Toggle Maximized 1 1" }
+					Button = "2" { Actions = "Toggle Maximized 1 0" }
+					Button = "3" { Actions = "Toggle Maximized 0 1" }
+				}
+				Right {
+					Focused = "Image min-normal.png"
+					Unfocused = "Image min-normal.png"
+					Pressed = "Image min-pressed.png"
+					Hoover = "Image min-prelight.png" 
+					Button = "1" { Actions = "Set Iconified" }
+				}
+				 None {
+					Focused = "Image menu-normal.png"
+					Unfocused = "Image menu-normal.png"
+					Pressed = "Image menu-pressed.png"
+					Hoover = "Image menu-prelight.png" 
+					Button = "1" { Actions = "Toggle Menu" }
+					Button = "3" { Actions = "" }
+				}
+			}
+			Border {
+				Focused {
+					TopLeft = "Image top-left.png"
+					Top = "Image top-middle.png"
+					TopRight = "Image top-right.png"
+					Left =  "Image frame-left.png"
+					Right = "Image frame-right.png"
+					BottomLeft = "Image bottom-left.png"
+					Bottom = "Image bottom-middle.png"
+					BottomRight = "Image bottom-right.png"
+				}
+				Unfocused {
+					TopLeft = "Image top-left.png"
+					Top = "Image top-middle.png"
+					TopRight = "Image top-right.png"
+					Left =  "Image frame-left.png"
+					Right = "Image frame-right.png"
+					BottomLeft = "Image bottom-left.png"
+					Bottom = "Image bottom-middle.png"
+					BottomRight = "Image bottom-right.png"
+				}
+			}
+		}
+	}
+
+	Decor = "Menu" {
+		Title {
+			Height = "0"
+			Pad = "0 0 0 0"
+		
+			Focused = "Empty"
+			Unfocused = "Empty"
+
+	                Tab {
+	                        Focused = "Empty"
+	       	                FocusedSelected = "Empty"
+	                        Unfocused = "Empty"
+	                        UnfocusedSelected = "Empty"  
+	                }
+                        Separator {
+                                Focused = "Empty"
+                                Unfocused = "Empty"
+                        }       
+	                Font {
+	                        Focused = "Empty"
+	                }
+	                FontColor {
+	                        Focused = "#a4a4a4"
+	                        FocusedSelected = "#a4a4a4"  
+	                        Unfocused = "#575757"
+	                        UnfocusedSelected = "#575757" 
+	                }
+	                Buttons {
+			}
+			Border {
+				Focused {
+					TopLeft = "Image top-left.png"
+					Top = "Image top-middle.png"
+					TopRight = "Image top-right.png"
+					Left =  "Image frame-left.png"
+					Right = "Image frame-right.png"
+					BottomLeft = "Image bottom-left.png"
+					Bottom = "Image bottom-middle.png"
+					BottomRight = "Image bottom-right.png"
+				}
+				Unfocused {
+					TopLeft = "Image top-left.png"
+					Top = "Image top-middle.png"
+					TopRight = "Image top-right.png"
+					Left =  "Image frame-left.png"
+					Right = "Image frame-right.png"
+					BottomLeft = "Image bottom-left.png"
+					Bottom = "Image bottom-middle.png"
+					BottomRight = "Image bottom-right.png"
+				}
+			}
+		}		
+	}
+
+	Decor = "Titlebarless" {
+		Title {
+			Focused = "Empty"
+			Unfocused = "Empty"
+
+                        Tab {
+                                Focused = "Empty"
+                                FocusedSelected = "Empty"
+                                Unfocused = "Empty"
+                                UnfocusedSelected = "Empty"
+                        }
+	                Separator {
+	                        Focused = "Empty"
+	                        Unfocused = "Empty"
+        	        }
+	                Font {
+	                        Focused = "Empty"
+	                }
+	                FontColor {
+	                        Focused = "Empty"
+	                        FocusedSelected = "Empty"
+	                        Unfocused = "Empty"
+	                        UnfocusedSelected = "Empty"
+	                }    
+			Border {
+				Focused {
+					TopLeft = "Image top-left.png"
+					Top = "Image top-middle.png"
+					TopRight = "Image top-right.png"
+					Left =  "Image frame-left.png"
+					Right = "Image frame-right.png"
+					BottomLeft = "Image bottom-left.png"
+					Bottom = "Image bottom-middle.png"
+					BottomRight = "Image bottom-right.png"
+				}
+				Unfocused {
+					TopLeft = "Image top-left.png"
+					Top = "Image top-middle.png"
+					TopRight = "Image top-right.png"
+					Left =  "Image frame-left.png"
+					Right = "Image frame-right.png"
+					BottomLeft = "Image bottom-left.png"
+					Bottom = "Image bottom-middle.png"
+					BottomRight = "Image bottom-right.png"
+				}
+			}
+		}
+	}
+
+	Decor = "Statuswindow" {
+		Title {
+			Height = "0"
+			Pad = "0 0 0 0"
+
+			Focused = "Empty"
+			Unfocused = "Empty"
+	
+			Tab {
+				Focused = "Empty"
+				FocusedSelected = "Empty"
+				Unfocused = "Empty"
+				UnfocusedSelected = "Empty"
+			}
+			Separator {
+				Focused = "Empty"
+				Unfocused = "Empty"
+			}
+			Font {
+				Focused = "Empty"
+			}
+			FontColor {
+				Focused = "Empty"
+				FocusedSelected = "Empty"
+				Unfocused = "Empty"
+				UnfocusedSelected = "Empty"
+			}
+			Buttons {
+			}
+	                Border {  
+				Focused {
+					TopLeft = "Image top-left.png"
+					Top = "Image top-middle.png"
+					TopRight = "Image top-right.png"
+					Left =  "Image frame-left.png"
+					Right = "Image frame-right.png"
+					BottomLeft = "Image bottom-left.png"
+					Bottom = "Image bottom-middle.png"
+					BottomRight = "Image bottom-right.png"
+				}
+				Unfocused {
+					TopLeft = "Image top-left.png"
+					Top = "Image top-middle.png"
+					TopRight = "Image top-right.png"
+					Left =  "Image frame-left.png"
+					Right = "Image frame-right.png"
+					BottomLeft = "Image bottom-left.png"
+					Bottom = "Image bottom-middle.png"
+					BottomRight = "Image bottom-right.png"
+				}
+	                        }
+	                }
+		}
+	}
+}
+
+Harbour {
+        Texture = "Solid #262524"	
+}
+
+Menu {
+        Pad = "2 2 4 4" 
+
+	Focused {
+    		Font = "$font"
+		Background = "Image frame-bg.png"
+    		Item = "Empty"
+		Text = "#a4a4a4" 
+		Separator = "Image menu-seperator.png"
+                Arrow = "Image arrow-right.png"
+  	}
+  	Unfocused {
+    		Font = "$font"
+                Background = "Image frame-bg.png"
+    		Item = "Empty"
+		Text = "#575757"
+		Separator = "Image menu-seperator.png"
+                Arrow = "Image arrow-right-prelight.png"
+  	}
+  	Selected {
+    		Font = "$font"
+                Background = "Solid #4d4d4d"
+		Item = "Empty"
+    		Text = "#a4a4a4"
+		Separator = "Empty"
+                Arrow = "Image arrow-right-pressed.png"
+  	}
+}
+
+CmdDialog {
+ 	Font = "$font"
+	#Texture = "Solid #262524"
+	Texture = "Image inputbox.png"
+	Text = "#a4a4a4"
+        Pad = "6 6 0 0"
+}
+
+Status {
+	Font = "$font"
+	Texture = "Image frame-bg.png"  
+        Text = "#a4a4a4"
+	Pad = "3 3 4 4"
+}
+
+WorkspaceIndicator {
+	Font = "$font"
+	Background = "Image frame-bg.png"
+	Workspace = "Image workspace-normal.png"
+	WorkspaceActive = "Image workspace-focus.png"
+	Text = "#a4a4a4"
+	EdgePadding = "0 0 0 0"
+	WorkspacePadding = "0 0 0 0 "
+}

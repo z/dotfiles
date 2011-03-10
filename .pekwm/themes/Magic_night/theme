@@ -1,0 +1,295 @@
+# mode of playbillblue theme
+
+$font = "droid sans-9.5#XFT"
+
+PDecor {
+	Decor = "Default" {
+		Title {
+			Height = "18"
+			Pad = "1 1 1 1"
+
+			Focused = "Image title.png"
+			Unfocused = "Image title.png"
+
+			Tab {
+				Focused = "Image title.png"
+				FocusedSelected = "Image title.png"
+				Unfocused = "Image title.png"
+				UnfocusedSelected = "Image title.png"
+			}
+			Separator {
+				Focused = "Image separator.png"
+				Unfocused = "Image separator.png"
+			}
+			Font {
+				Focused           = "$font"
+			}
+			FontColor {
+				Focused = "#B36426"
+				FocusedSelected = "#F7A52C"
+				Unfocused = "#a0a0a0"
+				UnfocusedSelected = "#a0a0a0"
+
+			}
+	               Buttons {
+			Right {
+				Focused = "Image button.png"
+				Unfocused = "Image button.png"
+				Pressed = "Image button-press.png"
+				Button = "1" { Actions = "Close" }
+				Button = "3" { Actions = "Kill" }
+			}
+
+			Right {
+				Focused = "Image button.png"
+				Unfocused = "Image button.png"
+				Pressed = "Image button-press.png"
+				Button = "1" { Actions = "Toggle Maximized 1 1" }
+			}
+
+			Right {
+				Focused = "Image button.png"
+				Unfocused = "Image button.png"
+				Pressed = "Image button-press.png"
+				Button = "1" { Actions = "Set Iconified" }
+			}
+		}
+			Border {
+				Focused {
+					TopLeft = "Image top-left.png"
+					Top = "Image top-border.png"
+					TopRight = "Image top-right.png"
+				#	Left =  "Image left-border.png"
+				#	Right = "Image right-border.png"
+					Left = "Empty"
+					Right = "Empty"
+					BottomLeft = "Image bottom-left.png"
+					Bottom = "Image bottom-border.png"
+					BottomRight = "Image bottom-right.png"
+				}
+				Unfocused {
+					TopLeft = "Image top-left.png"
+					Top = "Image top-border.png"
+					TopRight = "Image top-right.png"
+				#	Left =  "Image left-border.png"
+				#	Right = "Image right-border.png"
+					Left = "Empty"
+					Right = "Empty"
+					BottomLeft = "Image bottom-left.png"
+					Bottom = "Image bottom-border.png"
+					BottomRight = "Image bottom-right.png"
+				}
+			}
+		}
+	}
+
+	Decor = "Menu" {
+		Title {
+			Height = "0"
+			Pad = "0 0 0 0"
+		
+			Focused = "Empty"
+			Unfocused = "Empty"
+
+	                Tab {
+	                        Focused = "Empty"
+	       	                FocusedSelected = "Empty"
+	                        Unfocused = "Empty"
+	                        UnfocusedSelected = "Empty"  
+	                }
+                        Separator {
+                                Focused = "Empty"
+                                Unfocused = "Empty"
+                        }       
+	                Font {
+	                        Focused = "$font"
+	                }
+	                FontColor {
+	                        Focused = "Empty"
+	                        FocusedSelected = "Empty"  
+	                        Unfocused = "Empty"
+	                        UnfocusedSelected = "Empty" 
+	                }
+	                Buttons {
+			}
+			Border {
+				Focused {
+					TopLeft = "Image top-left-menu.png"
+					Top = "Image top-menu.png"
+					TopRight = "Image top-right-menu.png"
+					Left =  "Image left-menu.png"
+					Right = "Image right-menu.png"
+					BottomLeft = "Image bottom-left-menu.png"
+					Bottom = "Image bottom-menu.png"
+					BottomRight = "Image bottom-right-menu.png"
+				}
+				Unfocused {
+					TopLeft = "Image top-left-menu.png"
+					Top = "Image top-menu.png"
+					TopRight = "Image top-right-menu.png"
+					Left =  "Image left-menu.png"
+					Right = "Image right-menu.png"
+					BottomLeft = "Image bottom-left-menu.png"
+					Bottom = "Image bottom-menu.png"
+					BottomRight = "Image bottom-right-menu.png"
+				}
+			}
+		}		
+	}
+
+	Decor = "Titlebarless" {
+		Title {
+			Focused = "Empty"
+			Unfocused = "Empty"
+
+                        Tab {
+                                Focused = "Empty"
+                                FocusedSelected = "Empty"
+                                Unfocused = "Empty"
+                                UnfocusedSelected = "Empty"
+                        }
+
+	                Separator {
+	                        Focused = "Empty"
+	                        Unfocused = "Empty"
+        	        }
+	                Font {
+	                        Focused = "Empty"
+	                }
+	                FontColor {
+	                        Focused = "Empty"
+	                        FocusedSelected = "Empty"
+	                        Unfocused = "Empty"
+	                        UnfocusedSelected = "Empty"
+	                }    
+			Border {
+				Focused {
+					TopLeft = "Empty"
+					Top = "Empty"
+					TopRight = "Empty"
+					Left =  "Empty"
+					Right = "Empty"
+					BottomLeft = "Empty"
+					Bottom = "Empty"
+					BottomRight = "Empty"
+				}
+				Unfocused {
+	                                TopLeft = "Empty"           
+	                                Top = "Empty"           
+        	                        TopRight = "Empty"           
+	                                Left =  "Empty"           
+	                                Right = "Empty"           
+	                                BottomLeft = "Empty"           
+	                                Bottom = "Empty"           
+	                                BottomRight = "Empty"
+				}
+			}
+		}
+	}
+
+	Decor = "Statuswindow" {
+		Title {
+			Height = "0"
+			Pad = "0 0 0 0"
+
+			Focused = "Empty"
+			Unfocused = "Empty"
+	
+			Tab {
+				Focused = "Empty"
+				FocusedSelected = "Empty"
+				Unfocused = "Empty"
+				UnfocusedSelected = "Empty"
+			}
+			Separator {
+				Focused = "Empty"
+				Unfocused = "Empty"
+			}
+			Font {
+				Focused = "Empty"
+			}
+			FontColor {
+				Focused = "Empty"
+				FocusedSelected = "Empty"
+				Unfocused = "Empty"
+				UnfocusedSelected = "Empty"
+			}
+			Buttons {
+			}
+	                Border {  
+	                      Focused {
+				TopLeft = "Empty"
+				Top = "Empty"
+				TopRight = "Empty"
+				Left =  "Empty"
+				Right = "Empty"
+				BottomLeft = "Empty"
+				Bottom = "Empty"
+				BottomRight = "Empty"
+			}
+			Unfocused {
+				TopLeft = "Empty"
+				Top = "Empty"
+				TopRight = "Empty"
+				Left = "Empty"
+				Right = "Empty"
+				BottomLeft = "Empty"
+				Bottom = "Empty"
+				BottomRight = "Empty"
+	                        }
+	                }
+		}
+	}
+}
+
+Harbour {
+        Texture = "Solid #0a0a0a"
+	}
+Menu {
+        Pad = "1 1 7 7" 
+
+	Focused {
+    		Font = "$font"
+		Background = "Solid #171717"
+    		Item = "arrow-focus"
+		Text = "#a0a0a0" 
+		Separator = "Image menuline.png"
+                Arrow = "Image arr-unfocus.png"
+  	}
+  	Unfocused {
+    		Font = "$font"
+                Background = "Solid #171717"
+    		Item = "arrow-focus"
+		Text = "#a0a0a0"
+		Separator = "Image menuline.png"
+                Arrow = "Image arr-unfocus.png"
+  	}
+  	Selected {
+    		Font = "$font"
+    		Background = "Solid #171717"
+		Item = "arrow-sel"
+    		Text = "#F7A52C"
+                Arrow = "Image arr-sel.png"
+  	}
+}
+CmdDialog {
+ 	Font = "$font"
+	Texture = "Solid #171717"
+	Text = "#a0a0a0"
+        Pad = "8 0 1 10"
+}
+Status {
+	Font = "$font"
+	Texture = "Solid #171717"  
+        Text = "#a0a0a0"
+	Pad = "2 2 10 10"
+}
+WorkspaceIndicator {
+  Font = "$font"
+  Background = "Image back.png"
+  Workspace = "Image workspace.png"
+  WorkspaceActive = "Image workspace-sel.png"
+  Text = "#d0d0d0"
+  EdgePadding = "5"
+  WorkspacePadding = "8"
+}
