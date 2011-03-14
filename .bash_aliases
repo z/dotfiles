@@ -1,6 +1,14 @@
 # reload .bashrc
 alias bashrc='clear; . $HOME/.bashrc'
 
+DISTRO='unknown'
+unamestr=$(lsb_release -ds |awk '{ print $1 }')
+if [[ "$unamestr" == 'Ubuntu' ]]; then
+   DISTRO='ubuntu'
+else
+   DISTRO='linux'
+fi
+
 # define colors
 Black='\e[0;30m'    # Black / Regular
 Red='\e[0;31m'      # Red
@@ -42,7 +50,12 @@ NC='\e[0m'          # Text Reset / No Color
 
 colortest() { for c in {,B,U,BG}{Black,Red,Green,Yellow,Blue,Purple,Cyan,White}; do echo -e ${!RWhite}${!c}$c${NC}; done; echo -e "${NC}"; }
 
-PS1="\[\e[1;34m\]\u\[\e[0;36m\]@\[\e[1;34m\]\h\[\e[0m\]:\[\e[0;34m\]\w\[\e[0;36m\]$ \[\e[0m\]"
+# Realias presets as such: PS1=$PS1z1
+PS1z1="\[${BGreen}\]\u\[${BCyan}\]@\[${BWhite}\]\h\[${Cyan}\]:\[${Cyan}\]\w\[${BGreen}\]$ \[${NC}\]"
+PS1z2="\[${Cyan}\]\u\[${BBlue}\]@\[${White}\]\h\[${Cyan}\]:\[${BBlue}\]\w\[${Cyan}\]$ \[${NC}\]"
+PS1z3="\[${Red}\]\u\[${BYellow}\]@\[${BGreen}\]\h\[${Green}\]:\[${BYellow}\]\w\[${Green}\]$ \[${NC}\]"
+PS1z4="\[${Purple}\]\u\[${BCyan}\]@\[${NC}\]\h\[${BBlue}\]:\[${BGreen}\]\w\[${White}\]$ \[${NC}\]"
+PS1z5="\[${BCyan}\]\u\[${White}\]@\[${Blue}\]\h\[${BBlue}\]:\[${Cyan}\]\w\[${Blue}\]$ \[${NC}\]"
 
 # Yay Colors
 alias tmux="tmux -2" # vim full color
@@ -54,17 +67,14 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 # directory navigation
-alias explore='thunar --browser .'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
 
 # make directory and move into it
 mkcdr() { mkdir -p $1 && cd $1; }
-
-# have a "cow" say a fortune
-cowtune () { fortune | cowsay -f $(ls /usr/share/cows/ | shuf -n1); }
 
 # move "type"
 # touch file.{jpg,bmp,gif} && ls
@@ -119,13 +129,19 @@ addclock() { while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput 
 showkeys() { echo -e "Terminal shortcut keys\n" && sed -e 's/\^/Ctrl+/g;s/M-/Shift+/g' <(stty -a 2>&1| sed -e 's/;/\n/g' | grep "\^" | tr -d ' '); }
 rtfm() { help $@ || man $@ || $BROWSER "http://www.google.com/search?q=$@"; }
 
-# Arch
-alias pacman='pacman-color'
-
-# Ubuntu
-#PS1="${debian_chroot:+($debian_chroot)}\[${BWhite}\]\u\[${NC}\]\[${Yellow}\]@\[${White}\]\h\[${NC}\]:\[${BBlue}\]\w\[${NC}\]$ "
-#alias explore='nautilus --browser .'
-#cowtune() { fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1); }
+if [[ "$DISTRO" == "ubuntu" ]]; then
+    # Ubuntu
+    PS1="${debian_chroot:+($debian_chroot)}\[${BWhite}\]\u\[${NC}\]\[${Yellow}\]@\[${White}\]\h\[${NC}\]:\[${BBlue}\]\w\[${NC}\]$ "
+    alias explore='nautilus --browser .'
+    cowtune() { fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1); }
+else
+    PS1="\[\e[1;34m\]\u\[\e[0;36m\]@\[\e[1;34m\]\h\[\e[0m\]:\[\e[0;34m\]\w\[\e[0;36m\]$ \[\e[0m\]"
+    # Arch (group arch with general for now)
+    alias pacman='pacman-color'
+    # have a "cow" say a fortune
+    alias explore='pcmanfm .'
+    cowtune () { fortune | cowsay -f $(ls /usr/share/cows/ | shuf -n1); }
+fi
 
 # don't sudo vim / broken
 #function sudo () { [[ $1 == vim ]] && echo "use sudoedit!"; shift && sudoedit "$@" || command sudo "$@"; }
