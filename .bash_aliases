@@ -2,12 +2,7 @@
 alias bashrc='clear; . $HOME/.bashrc'
 
 DISTRO='unknown'
-unamestr=$(lsb_release -ds |awk '{ print $1 }')
-if [[ "$unamestr" == 'Ubuntu' ]]; then
-   DISTRO='ubuntu'
-else
-   DISTRO='linux'
-fi
+DISTRO=$(lsb_release -i | awk -F ":" '{ print $2 }' | sed -e 's/^[ \t]*//')
 
 # define colors
 Black='\e[0;30m'    # Black / Regular
@@ -85,7 +80,7 @@ findtypes() { find . -type f | awk -F'.' '{print $NF}' | sort| uniq -c | sort -g
 backup() { cp -i $1{,.bak.$(date +%Y%m%d%H%M%S)}; }
 
 # math
-?() { python2 -c "from math import *; print $@"; }
+? () { echo "$*" | bc -l; }
 
 # svn
 svn_addr() { for file in $(svn status |grep ^\? |awk '{ print $2 }'); do svn add $file; done; }
@@ -118,21 +113,21 @@ mktar() { tar cvf  "${1%%/}.tar"     "${1%%/}/"; }
 mktgz() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
 mktbz() { tar cvjf "${1%%/}.tar.bz2" "${1%%/}/"; }
 
-# create a new chromium profile
-new-chromium-profile() { p=~/.config/chromium/$1; cp -r ~/.config/chromium/Default $p && echo "chromium-browser --user-data-dir=$p" && chromium-browser --user-data-dir=$p; }
-# runs a chromium profile
-run-chromium-profile() { chromium-browser --user-data-dir=~/.config/chromium/$1; }
-
-
 # Add Clock
 addclock() { while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done & }
 showkeys() { echo -e "Terminal shortcut keys\n" && sed -e 's/\^/Ctrl+/g;s/M-/Shift+/g' <(stty -a 2>&1| sed -e 's/;/\n/g' | grep "\^" | tr -d ' '); }
 rtfm() { help $@ || man $@ || $BROWSER "http://www.google.com/search?q=$@"; }
 
-if [[ "$DISTRO" == "ubuntu" ]]; then
+# No longer entirely accurate
+if [[ "$DISTRO" == "Ubuntu" ]]; then
     # Ubuntu
     PS1="${debian_chroot:+($debian_chroot)}\[${BWhite}\]\u\[${NC}\]\[${Yellow}\]@\[${White}\]\h\[${NC}\]:\[${BBlue}\]\w\[${NC}\]$ "
     alias explore='nautilus --browser .'
+    cowtune() { fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1); }
+elif [[ "$DISTRO" == "LinuxMint" ]]; then
+    # LinuxMint
+    PS1="${debian_chroot:+($debian_chroot)}\[${BWhite}\]\u\[${NC}\]\[${Yellow}\]@\[${White}\]\h\[${NC}\]:\[${BBlue}\]\w\[${NC}\]$ "
+    alias explore='caja --browser .'
     cowtune() { fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1); }
 else
     PS1="\[\e[1;34m\]\u\[\e[0;36m\]@\[\e[1;34m\]\h\[\e[0m\]:\[\e[0;34m\]\w\[\e[0;36m\]$ \[\e[0m\]"

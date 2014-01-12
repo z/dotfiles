@@ -7,7 +7,7 @@ export EDITOR=vim
 export VISUAL=vim
 
 if [ -n "$DISPLAY" ]; then
-     BROWSER=chromium
+     BROWSER=chromium-browser
 fi
 
 # don't put duplicate lines in the history. See bash(1) for more options
@@ -23,6 +23,8 @@ shopt -s histappend
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
+
+shopt -s extglob
 
 # load all my bash functions and aliases
 if [ -f ~/.bash_aliases ]; then
