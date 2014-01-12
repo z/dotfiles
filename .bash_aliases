@@ -119,16 +119,18 @@ showkeys() { echo -e "Terminal shortcut keys\n" && sed -e 's/\^/Ctrl+/g;s/M-/Shi
 rtfm() { help $@ || man $@ || $BROWSER "http://www.google.com/search?q=$@"; }
 
 # No longer entirely accurate
-if [[ "$DISTRO" == "Ubuntu" ]]; then
-    # Ubuntu
+if [[ "$DISTRO" == "Ubuntu" || "$DISTRO" == "LinuxMint" ]]; then
     PS1="${debian_chroot:+($debian_chroot)}\[${BWhite}\]\u\[${NC}\]\[${Yellow}\]@\[${White}\]\h\[${NC}\]:\[${BBlue}\]\w\[${NC}\]$ "
-    alias explore='nautilus --browser .'
     cowtune() { fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1); }
+    alias apti='sudo apt-get install'
+    alias apts='apt-cache search'
+    # Ubuntu
+    if [[ "$DISTRO" == "Ubuntu" ]]; then
+        alias explore='nautilus --browser .'
+    fi
 elif [[ "$DISTRO" == "LinuxMint" ]]; then
     # LinuxMint
-    PS1="${debian_chroot:+($debian_chroot)}\[${BWhite}\]\u\[${NC}\]\[${Yellow}\]@\[${White}\]\h\[${NC}\]:\[${BBlue}\]\w\[${NC}\]$ "
     alias explore='caja --browser .'
-    cowtune() { fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1); }
 else
     PS1="\[\e[1;34m\]\u\[\e[0;36m\]@\[\e[1;34m\]\h\[\e[0m\]:\[\e[0;34m\]\w\[\e[0;36m\]$ \[\e[0m\]"
     # Arch (group arch with general for now)
