@@ -1,6 +1,5 @@
 " .vimrc
-" Tyler Mulligan <z@interwebninja.com>
-" Last Updated 10/13/2010                 
+" Last Updated 11/03/2015
 
 " Environment Basics
 set nocompatible        " don't keep vi bugs
@@ -53,18 +52,3 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
-
-" Zen Coding
-let g:user_zen_leader_key = '<c-e>'
-let g:user_zen_settings = {
-\  'php' : {
-\    'extends' : 'html',
-\    'filters' : 'c',
-\  },
-\  'xml' : {
-\    'extends' : 'html',
-\  },
-\  'haml' : {
-\    'extends' : 'html',
-\  },
-\}
