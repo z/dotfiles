@@ -1,6 +1,8 @@
-# reload .bashrc
+# Reload .bashrc
 alias bashrc='clear; . $HOME/.bashrc'
 
+
+## Vars
 DISTRO='unknown'
 DISTRO=$(lsb_release -i | awk -F ":" '{ print $2 }' | sed -e 's/^[ \t]*//')
 
@@ -43,21 +45,15 @@ BGWhite='\e[47m'    # BGWhite
 
 NC='\e[0m'          # Text Reset / No Color
 
-colortest() { for c in {,B,U,BG}{Black,Red,Green,Yellow,Blue,Purple,Cyan,White}; do echo -e ${!RWhite}${!c}$c${NC}; done; echo -e "${NC}"; }
 
-# Realias presets as such: PS1=$PS1z1
-PS1z1="\[${BGreen}\]\u\[${BCyan}\]@\[${BWhite}\]\h\[${Cyan}\]:\[${Cyan}\]\w\[${BGreen}\]$ \[${NC}\]"
-PS1z2="\[${Cyan}\]\u\[${BBlue}\]@\[${White}\]\h\[${Cyan}\]:\[${BBlue}\]\w\[${Cyan}\]$ \[${NC}\]"
-PS1z3="\[${Red}\]\u\[${BYellow}\]@\[${BGreen}\]\h\[${Green}\]:\[${BYellow}\]\w\[${Green}\]$ \[${NC}\]"
-PS1z4="\[${Purple}\]\u\[${BCyan}\]@\[${NC}\]\h\[${BBlue}\]:\[${BGreen}\]\w\[${White}\]$ \[${NC}\]"
-PS1z5="\[${BCyan}\]\u\[${White}\]@\[${Blue}\]\h\[${BBlue}\]:\[${Cyan}\]\w\[${Blue}\]$ \[${NC}\]"
+## Aliases
 
-# Yay Colors
+# yay colors
 alias tmux="tmux -2" # vim full color
 alias ls='ls --color=auto'
 alias dir='dir --color=auto'
 alias vdir='vdir --color=auto'
-alias grep='grep --color=auto'
+alias grep='grep --color=always'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
@@ -68,8 +64,25 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 
+
+## Functions
+colortest() { for c in {,B,U,BG}{Black,Red,Green,Yellow,Blue,Purple,Cyan,White}; do echo -e ${!RWhite}${!c}$c${NC}; done; echo -e "${NC}"; }
+
+# simple apache log view
+logview() {
+    awk '{ print $1 " " $2 " " $3 " " $4 " " $5 " " $6 " " $7 " " $8 }'
+}
+
 # make directory and move into it
 mkcdr() { mkdir -p $1 && cd $1; }
+
+# unix times
+unix2date() {
+    date -d @$1 +'%Y-%m-%d %H:%M:%S'
+}
+date2unix() {
+    date -d "$1" "+%s"
+}
 
 # move "type"
 # touch file.{jpg,bmp,gif} && ls
@@ -77,10 +90,27 @@ mkcdr() { mkdir -p $1 && cd $1; }
 mvt() { for f in $1; do mv $f ${f%.*}.$2; done }
 findtypes() { find . -type f | awk -F'.' '{print $NF}' | sort| uniq -c | sort -g; }
 
+# create backup
 backup() { cp -i $1{,.bak.$(date +%Y%m%d%H%M%S)}; }
 
 # math
 ? () { echo "$*" | bc -l; }
+
+set_titlebar() {
+    case $TERM in
+        *xterm*|ansi|rxvt)
+            printf "\033]0;%s\007" "$*"
+            ;;
+    esac
+}
+
+# git
+get_dir() {
+    printf "%s" $(pwd | sed "s:$HOME:~:")
+}
+get_sha() {
+    git rev-parse --short HEAD 2>/dev/null
+}
 
 # svn
 svn_addr() { for file in $(svn status |grep ^\? |awk '{ print $2 }'); do svn add $file; done; }
@@ -108,37 +138,37 @@ extract() {
         echo "'$1' is not a valid file"
 	fi
 }
+
 # tar
 mktar() { tar cvf  "${1%%/}.tar"     "${1%%/}/"; }
 mktgz() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
 mktbz() { tar cvjf "${1%%/}.tar.bz2" "${1%%/}/"; }
 
-# Add Clock
+# add clock
 addclock() { while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done & }
 showkeys() { echo -e "Terminal shortcut keys\n" && sed -e 's/\^/Ctrl+/g;s/M-/Shift+/g' <(stty -a 2>&1| sed -e 's/;/\n/g' | grep "\^" | tr -d ' '); }
-rtfm() { help $@ || man $@ || $BROWSER "http://www.google.com/search?q=$@"; }
 
-# No longer entirely accurate
+## Distro specific
 if [[ "$DISTRO" == "Ubuntu" || "$DISTRO" == "LinuxMint" ]]; then
-    PS1="${debian_chroot:+($debian_chroot)}\[${BWhite}\]\u\[${NC}\]\[${Yellow}\]@\[${White}\]\h\[${NC}\]:\[${BBlue}\]\w\[${NC}\]$ "
+    PS1="${debian_chroot:+($debian_chroot)}\[${BWhite}\]\u\[${NC}\]\[${Yellow}\]@\[${White}\]\h\[${NC}\]:\[${BBlue}\]\w\[${NC}\]\[${White}\]$ \[${NC}\]"
+    GIT_PS1_SHOWDIRTYSTATE=1
+    GIT_PS1_SHOWSTASHSTATE=1
+    GIT_PS1_SHOWUNTRACKEDFILES=1
+    GIT_PS1_SHOWCOLORHINTS=1
+    GIT_PS1_DESCRIBE_STYLE="branch"
+    PROMPT_COMMAND='__git_ps1 "${debian_chroot:+($debian_chroot)}\[${BWhite}\]\u\[${NC}\]\[${Yellow}\]@\[${White}\]\h\[${NC}\]:\[${BBlue}\]\w\[${NC}\]" "\[${White}\]\\\$ \[${NC}\]" " (%s $(get_sha))"; set_titlebar "$USER@${HOSTNAME%%.*} $(get_dir)"'
+
+    # functions
     cowtune() { fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1); }
+
+    # aliases
     alias apti='sudo apt-get install'
     alias apts='apt-cache search'
-    # Ubuntu
-    if [[ "$DISTRO" == "Ubuntu" ]]; then
-        alias explore='nautilus --browser .'
-    fi
-elif [[ "$DISTRO" == "LinuxMint" ]]; then
-    # LinuxMint
-    alias explore='caja --browser .'
+    alias nemo='caja'
 else
     PS1="\[\e[1;34m\]\u\[\e[0;36m\]@\[\e[1;34m\]\h\[\e[0m\]:\[\e[0;34m\]\w\[\e[0;36m\]$ \[\e[0m\]"
-    # Arch (group arch with general for now)
-    alias pacman='pacman-color'
-    # have a "cow" say a fortune
-    alias explore='pcmanfm .'
-    cowtune () { fortune | cowsay -f $(ls /usr/share/cows/ | shuf -n1); }
 fi
 
-# don't sudo vim / broken
-#function sudo () { [[ $1 == vim ]] && echo "use sudoedit!"; shift && sudoedit "$@" || command sudo "$@"; }
+if [ -f $HOME/.private_aliases ]; then
+    . $HOME/.private_aliases
+fi

@@ -13,15 +13,14 @@ git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/cu
 ```
 
 ###### zsh-autosuggestions
+
+*zsh-autosuggestions is undergoing major changes, please use the v0.2.x branch*
 ```
 git clone git://github.com/tarruda/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions 
+cd ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+git checkout v0.2.x
+cd -
 ```
-
-###### zsh-history-substring-search
-```
-git clone git://github.com/zsh-users/zsh-history-substring-search.git ~/.oh-my-zsh/custom/plugins/zsh-history-substring-search
-```
-
 These plugins are used to simulate [fish](http://fishshell.com)-like behavior.
 
 Alternatively, these can be disabled in `.zshrc` by commenting out the following:

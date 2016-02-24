@@ -27,11 +27,6 @@ shopt -s checkwinsize
 shopt -s extglob
 
 # load all my bash functions and aliases
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-# my python virtualenv tools
-if [ -f ~/venv/venv ]; then
-    . ~/venv/venv
+if [ -f $HOME/.bash_aliases ]; then
+    . $HOME/.bash_aliases
 fi

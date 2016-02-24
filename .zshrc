@@ -39,7 +39,7 @@ ENHANCED_COMPLETION="true"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
@@ -61,13 +61,13 @@ ENHANCED_COMPLETION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git async-rprompt z zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search) 
+plugins=(git z zsh-syntax-highlighting zsh-autosuggestions history-substring-search docker)
 
 # User configuration
 
 export PATH="$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-# export MANPATH="/usr/local/man:$MANPATH"
-
+export MANPATH="/usr/local/man:$MANPATH"
+export PATH="$PATH":~/.node/bin
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
@@ -86,6 +86,9 @@ source $ZSH/oh-my-zsh.sh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
+# History
+unsetopt share_history
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -96,11 +99,38 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias tmux='tmux -2'
 alias apts='apt-cache search'
+alias aptu='apt-get update'
 # always going to sudo these
-alias aptg='sudo apt-get install'
+alias aptup='sudo apt-get upgrade'
+alias aptud='sudo apt-get dist-upgrade'
+alias apti='sudo apt-get install'
 alias aptr='sudo apt-get remove'
 alias aptp='sudo apt-get purge'
+alias dco='docker-compose'
 
 if [ -f $HOME/.private_aliases ]; then
     . $HOME/.private_aliases
 fi
+
+delete_branch() {
+    branch=$1
+    git branch -d $branch
+    if [[ "$status" == 0 ]]; then
+        echo "Not deleting from origin until issues above are resolved"
+        return 1
+    else
+        git push origin --delete $branch
+    fi
+}
+
+list_merged() {
+    for branch in `git branch -r --merged | grep -v HEAD`;do echo -e `git show --format="%ai %ar by %an" $branch | head -n 1` \\t$branch; done | sort -r
+}
+
+list_unmerged() {
+    for branch in `git branch -r --no-merged | grep -v HEAD`;do echo -e `git show --format="%ai %ar by %an" $branch | head -n 1` \\t$branch; done | sort -r
+}
+
+vboxshare() {
+    sudo mount -t vboxsf -o uid=$UID,gid=$(id -g) vbox-share ~/share
+}

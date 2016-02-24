@@ -1,0 +1,4 @@
+startup_message off
+hardstatus off
+hardstatus alwayslastline
+hardstatus string '%{= kG}%{g}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %d/%M/%y %{W}%c:%s %{g}]'
