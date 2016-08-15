@@ -1,6 +1,6 @@
 " .vimrc
 " Tyler Mulligan <z@interwebninja.com>
-" Last Updated 02/24/2016
+" Last Updated 03/03/2016
 
 set nocompatible        " don't keep vi bugs
 filetype off            " required
@@ -12,37 +12,39 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" My Plugins
+" Plugins
 Plugin 'kien/tabman.vim'
 Plugin 'scrooloose/nerdtree'
+Plugin 'ervandew/supertab'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'blueshirts/darcula'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
 
 " Theme
-set background=dark     " assume dark background
+syntax enable           " highlighting
 set term=xterm-256color " for compatibility with tmux
 set t_Co=256            " 256 color support   
-
-syntax enable           " highlighting
-"colorscheme railscasts  " railscasts theme
-"colorscheme duotone-darkforest
-"colorscheme duotone-dark
-"colorscheme onedark
-colorscheme wolfpack
+set background=dark     " assume dark background
+color darcula
 highlight Normal ctermbg=NONE
 highlight nonText ctermbg=NONE
 
 " vim-airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:airline_theme='wombat'
+let g:airline_theme='distinguished'
 set laststatus=2
 
+"let mapleader = "\<Space>"
 
 " Environment Basics
 set shortmess+=I        " remove splash
 set virtualedit=all     " free roaming cursor
-set paste               " sane pasting
+"set paste               " sane pasting
 set mouse=iv            " auto mouse
 set ruler               " show cursor position
 set number              " line numbers
@@ -51,13 +53,14 @@ set history=100         " history
 set visualbell          " No beeps
 
 " Tabs
-"set autoindent          " in favor of smart
+set autoindent          " in favor of smart
 set smartindent         " go with the flow
 set tabstop=4           " normal tabs
 set smarttab            " smart tabs
 set softtabstop=4       " normal tabs
 set shiftwidth=4        " normal tabs
 set expandtab           " tabs to spaces
+set copyindent
 
 " Better Editor
 set linebreak           " Break lines at word
@@ -66,7 +69,7 @@ set textwidth=100       " Line wrap # of cols
 set cursorline          " highlight current line
 set showmatch           " braces
 set incsearch           " search as you type
-set hlsearch
+set hlsearch            " highlight search term
 set wrap                " wrap text
 set wildmenu            " show commands at the bottom
 set wildmode=list:longest,full
@@ -77,6 +80,14 @@ map <C-H> <C-W>h<C-W>_
 map <C-J> <C-W>j<C-W>_
 map <C-K> <C-W>k<C-W>_
 map <C-L> <C-W>l<C-W>_
+
+" Splits
+nnoremap <leader>w <C-w>
+nnoremap <leader>, <C-w><C-w>
+nnoremap <leader>h :split<CR>
+nnoremap <leader>v :vsplit<CR>
+nnoremap <leader>- :split<CR>
+nnoremap <leader>\| :vsplit<CR>
 
 " Tab switching ctrl + left/right
 map <C-Left> <Esc>:tabprev<CR>
@@ -91,12 +102,45 @@ inoremap <C-t> <Esc>:tabnew<CR>
 " Plugin hotkeys
 nmap <leader>nt :NERDTreeToggle<cr>
 
+" quick edit and reload of vimrc
+nnoremap <silent> <leader>ev :vsp $MYVIMRC<CR>
+nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
+
+" quicker :
+nnoremap ; :
+
+" clear search
+nmap <silent> <leader>/ :nohlsearch<CR>
+
 " sudo saver
-command W w !sudo tee % > /dev/null
+cmap w!! w !sudo tee % >/dev/null
 
 " SuperTab
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabContextDefaultCompletionType = "<c-n>"
+
+" Paste fix
+function! WrapForTmux(s)
+  if !exists('$TMUX')
+    return a:s
+  endif
+
+  let tmux_start = "\<Esc>Ptmux;"
+  let tmux_end = "\<Esc>\\"
+
+  return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
+endfunction
+
+let &t_SI .= WrapForTmux("\<Esc>[?2004h")
+let &t_EI .= WrapForTmux("\<Esc>[?2004l")
+
+function! XTermPasteBegin()
+  set pastetoggle=<Esc>[201~
+  set paste
+  return ""
+endfunction
+
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
 " Omnomnomnom
 autocmd FileType python set omnifunc=pythoncomplete#Complete
@@ -110,6 +154,7 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 " Tab widths per filetype
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd FileType css setlocal shiftwidth=2 tabstop=2
 
 " tmux compatibility
 if &term =~ '^screen' && exists('$TMUX')
@@ -140,8 +185,3 @@ if &term =~ '^screen' && exists('$TMUX')
     execute "set <F11>=\e[23;*~"
     execute "set <F12>=\e[24;*~"
 endif
-
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
