@@ -1,17 +1,12 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
+#setopt completealiases
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="zed"
-
-# zed theme allows THREE RPROMPT MODES:
-# 0 - no right prompt, all git info in the left
-# 1 - right prompt with git info, not async
-# 2 - right prompt with git info, async
-RPROMPT_MODE=1
 
 # Autosuggest -- requires in order: zsh-syntax-highlighting zsh-autosuggestions
 AUTOSUGGESTION="true"
@@ -39,7 +34,7 @@ ENHANCED_COMPLETION="true"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+#ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
@@ -61,13 +56,14 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git z zsh-syntax-highlighting zsh-autosuggestions history-substring-search docker)
+plugins=(git z zsh-syntax-highlighting zsh-autosuggestions history-substring-search history-search-multi-word docker)
 
 # User configuration
 
 export PATH="$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 export MANPATH="/usr/local/man:$MANPATH"
 export PATH="$PATH":~/.node/bin
+export LD_LIBRARY_PATH=/usr/local/lib
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
@@ -108,9 +104,27 @@ alias aptr='sudo apt-get remove'
 alias aptp='sudo apt-get purge'
 alias dco='docker-compose'
 
+alias clipboard='xclip -se c'
+alias tb="nc termbin.com 9999"
+alias kp='pkill mate-panel' # because it misbehaves
+
+alias man='TERM=xterm LC_ALL= w3mman'
+
+bindkey '^L' push-line
+
 if [ -f $HOME/.private_aliases ]; then
     . $HOME/.private_aliases
 fi
+
+if [[ ASCIINEMA_REC == 1 ]]; then
+    bash
+fi
+
+function tmuxc() {
+  SESSION="servers"
+  TARGET=$1
+  tmux send-keys -t $SESSION:$TARGET "$2" Enter
+}
 
 delete_branch() {
     branch=$1
@@ -134,3 +148,31 @@ list_unmerged() {
 vboxshare() {
     sudo mount -t vboxsf -o uid=$UID,gid=$(id -g) vbox-share ~/share
 }
+
+xonotic() {
+    cd ~/xonotic/xonotic/
+    ./all run sdl $@
+}
+
+xonotic_update() {
+    cd ~/xonotic/xonotic/
+    ./all update $@
+}
+
+xonotic_compile() {
+    cd ~/xonotic/xonotic/
+    ./all clean; export SDL_CONFIG=sdl-config; ./all compile $@
+}
+
+ytda() {
+    youtube-dl -x --audio-format "best" "$1" --get-filename -o '%(title)s.%(ext)s' --restrict-filenames    
+}
+
+ytdb() {
+    youtube-dl "$1" --get-filename -o '%(title)s.%(ext)s' --restrict-filenames    
+}
+
+imgless() {
+    w3m -o ext_image_viewer=0 -o confirm_qq=0 $1
+}
+

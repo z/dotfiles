@@ -23,14 +23,6 @@
 # * '=' if local repo is equal to remote repo (in sync)
 # * '<>' if local repo is diverged
 #
-# RECOMMENDS: async-rprompt
-# Configure your RPROMPT_MODE variable in your ~/.zshrc
-# THREE RPROMPT MODES:
-# 0 - no right prompt, all git info in the left
-# 1 - right prompt with git info, not async
-# 2 - right prompt with git info, async
-#
-# e.g. RPROMPT_MODE=2
 
 # Support 256 colors
 [[ "$TERM" == "xterm" ]] && export TERM=xterm-256color
@@ -93,16 +85,9 @@ ZSH_THEME_GIT_PROMPT_BEHIND_REMOTE="$yellowb<"
 ZSH_THEME_GIT_PROMPT_DIVERGED_REMOTE="$redb<>"
 
 PROMPT='$username_output$hostname_output:$current_dir_output%1(j. $jobs_bg.)'
-GIT_PROMPT='$(out=$(git_prompt_info)$(git_prompt_status)$(git_remote_status);if [[ -n $out ]]; then printf %s " $whiteb($reset$yellow$out$whiteb)$reset";fi)'
+GIT_PROMPT='$(out=$(git_prompt_info)$(git_prompt_status)$(git_remote_status);if [[ -n $out ]]; then printf %s "$whiteb($reset$yellow$out$whiteb)$reset | ";fi)'
 
-if [[ "${RPROMPT_MODE}" == 2 ]]; then
-    # ASYNC Right-hand prompt
-    ASYNC_RPROMPT="$GIT_PROMPT"
-elif [[ "${RPROMPT_MODE}" == 1 ]]; then
-    RPROMPT="$GIT_PROMPT"
-else
-    PROMPT+="$GIT_PROMPT"
-fi
+RPROMPT=${GIT_PROMPT}'%F{green}%D{%L:%M} %F{yellow}%D{%p}%f'
 
 PROMPT+=" $last_command_output%#$reset "
 
