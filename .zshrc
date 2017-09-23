@@ -84,6 +84,7 @@ source $ZSH/oh-my-zsh.sh
 
 # History
 unsetopt share_history
+setopt INC_APPEND_HISTORY
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -109,6 +110,8 @@ alias tb="nc termbin.com 9999"
 alias kp='pkill mate-panel' # because it misbehaves
 
 alias man='TERM=xterm LC_ALL= w3mman'
+
+alias gll='git log --graph --abbrev-commit --decorate --date=relative --all'
 
 bindkey '^L' push-line
 
@@ -175,4 +178,4 @@ ytdb() {
 imgless() {
     w3m -o ext_image_viewer=0 -o confirm_qq=0 $1
 }
-
+alias dcd='docker-compose down --remove-orphans'
