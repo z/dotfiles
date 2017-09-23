@@ -182,6 +182,6 @@ imgless() {
 }
 
 f() {
-    find . -name "*$1*" -print0 | xargs --no-run-if-empty -0 ls -1 --classify --directory
+    find . -iname "*$1*" -print0 | xargs --no-run-if-empty -0 ls -1 --classify --directory
 }
 
