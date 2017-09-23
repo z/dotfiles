@@ -113,6 +113,8 @@ alias man='TERM=xterm LC_ALL= w3mman'
 
 alias gll='git log --graph --abbrev-commit --decorate --date=relative --all'
 
+alias dcd='docker-compose down --remove-orphans'
+
 bindkey '^L' push-line
 
 if [ -f $HOME/.private_aliases ]; then
@@ -178,4 +180,8 @@ ytdb() {
 imgless() {
     w3m -o ext_image_viewer=0 -o confirm_qq=0 $1
 }
-alias dcd='docker-compose down --remove-orphans'
+
+f() {
+    find . -name "*$1*" -print0 | xargs --no-run-if-empty -0 ls -1 --classify --directory
+}
+
