@@ -13,19 +13,27 @@ By default, `zed.zsh-theme` requires the following plugins, which are not includ
 
 ###### zsh-autosuggestions
 
+[more info](https://github.com/zdharma/history-search-multi-word)
+
 ```
 git clone git://github.com/zdharma/history-search-multi-word.git ~/.oh-my-zsh/custom/plugins/history-search-multi-word.git
 ```
 
 ###### zsh-syntax-highlighting
+
+[more info](https://github.com/zsh-users/zsh-syntax-highlighting)
+
 ```
 git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting 
 ```
 
 ###### zsh-autosuggestions
 
+
+[more info](https://github.com/zsh-users/zsh-autosuggestions)
+
 ```
-git clone git://github.com/tarruda/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions 
+git clone git://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions 
 ```
 
 ###### Enabling/Disabling zsh plugins
@@ -52,6 +60,20 @@ cp -R ~/.tmux* ~
 ### screen
 
 More informative clean theme.
+
+```
+cp -R ~/.screenrc ~
+```
+
+### vim
+
+Requires [vundle](https://github.com/VundleVim/Vundle.vim) for plugins (NERDtree, tabman).
+
+```
+cp -R ~/.vim* ~
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vim +PluginInstall +qall
+```
 
 ### License
 
