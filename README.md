@@ -54,7 +54,7 @@ You should also remove `zsh-syntax-highlighting zsh-autosuggestions` from the pl
 Uses screen-like binds and a nice looking theme.
 
 ```
-cp -R ~/.tmux* ~
+cp -R .tmux* ~
 ```
 
 ### screen
@@ -62,7 +62,7 @@ cp -R ~/.tmux* ~
 More informative clean theme.
 
 ```
-cp -R ~/.screenrc ~
+cp -R .screenrc ~
 ```
 
 ### vim
@@ -70,7 +70,7 @@ cp -R ~/.screenrc ~
 Requires [vundle](https://github.com/VundleVim/Vundle.vim) for plugins (NERDtree, tabman).
 
 ```
-cp -R ~/.vim* ~
+cp -R .vim* ~
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
 ```
