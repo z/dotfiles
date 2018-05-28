@@ -113,7 +113,7 @@ nnoremap ; :
 nmap <silent> <leader>/ :nohlsearch<CR>
 
 " sudo saver
-cmap w!! w !sudo tee % >/dev/null
+cmap W! w !sudo tee % >/dev/null
 
 " SuperTab
 let g:SuperTabDefaultCompletionType = "context"

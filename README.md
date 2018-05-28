@@ -11,7 +11,7 @@ By default, `zed.zsh-theme` requires the following plugins, which are not includ
 
 #### Plugins
 
-###### zsh-autosuggestions
+###### history-search-multi-word
 
 [more info](https://github.com/zdharma/history-search-multi-word)
 
